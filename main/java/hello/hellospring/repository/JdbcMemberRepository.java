@@ -63,18 +63,27 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public Optional<Member> findById(Long id) {
         String sql = "select * from member where id = ?";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, id);
+
+            // 조회
             rs = pstmt.executeQuery();
+
+            // 값 있으면
             if(rs.next()) {
                 Member member = new Member();
+
                 member.setId(rs.getLong("id"));
                 member.setName(rs.getString("name"));
+
+                // 반환
                 return Optional.of(member);
             } else {
                 return Optional.empty();
@@ -88,20 +97,25 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public List<Member> findAll() {
         String sql = "select * from member";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
+
             List<Member> members = new ArrayList<>();
+
             while(rs.next()) {
                 Member member = new Member();
                 member.setId(rs.getLong("id"));
                 member.setName(rs.getString("name"));
                 members.add(member);
-            }
+            } // while
+
             return members;
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -112,14 +126,18 @@ public class JdbcMemberRepository implements MemberRepository {
     @Override
     public Optional<Member> findByName(String name) {
         String sql = "select * from member where name = ?";
+
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, name);
+
             rs = pstmt.executeQuery();
+
             if(rs.next()) {
                 Member member = new Member();
                 member.setId(rs.getLong("id"));
