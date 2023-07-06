@@ -2,7 +2,6 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +25,7 @@ class MemberServiceIntegrationTest {
 
         // Given
         Member member = new Member();
-        member.setName("spring");
+        member.setName("spring12");
 
         // When
         Long saveId = memberService.join(member);
