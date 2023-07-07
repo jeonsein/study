@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.Collections;
 import java.util.List;
 
 // MemberController는 MemberService를 통해서 회원가입 및 조회가 가능해야 함!
@@ -30,6 +28,10 @@ public class MemberController {
     public MemberController(MemberService memberService) {
 
         this.memberService = memberService;
+
+        // aop 적용 후 memberController가 memberService를 직접 호출하는지, proxy를 호출하는지
+        // 확인하기 위한 테스트 코드!
+        System.out.println("memberService = " + memberService.getClass());
     }   // MemberController
 
 //    # 필드 주입 방식

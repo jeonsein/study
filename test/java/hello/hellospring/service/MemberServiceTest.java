@@ -90,7 +90,6 @@ class MemberServiceTest {
             memberService.join(member2);
             fail();
 
-
         } catch (IllegalStateException e) {
 //            catch 블록: IllegalStateException 예외가 발생해야 함
 //            예외가 발생하지 않을 경우 -> fail() 메소드를 호출, 테스트를 실패시킴.

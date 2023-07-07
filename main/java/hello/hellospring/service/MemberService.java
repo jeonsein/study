@@ -15,10 +15,10 @@ import java.util.Optional;
 //@Service
 public class MemberService {
 
-//    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    //    private final MemberRepository memberRepository = new MemoryMemberRepository();
     private final MemberRepository memberRepository;
 
-//    @Autowired
+    //    @Autowired
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     } // MemberService
@@ -27,7 +27,12 @@ public class MemberService {
     public Long join(Member member) {
         // 조건) 같은 이름이 있는 중복 회원 X
 
+        long start = System.currentTimeMillis();
+
         validateDuplicateMember(member); // 중복 회원 검증
+        // 중복 회원 검증 이후 통과하면 저장
+        memberRepository.save(member);
+        return member.getId();
 
         /* Optional 사용 방법 #1
         // Optional로 반환 -> ifPresent 사용 가능.
@@ -42,10 +47,6 @@ public class MemberService {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         });
         */
-
-        // 중복 회원 검증 이후 통과하면 저장
-        memberRepository.save(member);
-        return member.getId();
 
     } // join()
 
@@ -65,7 +66,11 @@ public class MemberService {
 
     // 전체 회원 조회
     public List<Member> findMembers() {
+
+        long start = System.currentTimeMillis();
+
         return memberRepository.findAll();
+
     } // findMembers()
 
     public Optional<Member> findOne(Long memberId) {
