@@ -30,7 +30,8 @@ class RateDiscountPolicyTest {
         // when
         int discount = discountPolicy.discount(member, 10000);
         // then
-        assertThat(discount).isEqualTo(1000);
+//        assertThat(discount).isEqualTo(1000); // 실패
+        assertThat(discount).isEqualTo(0); // 성공
     } // vip_x()
 
 } // end class
