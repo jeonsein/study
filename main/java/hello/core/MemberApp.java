@@ -9,7 +9,11 @@ public class MemberApp {
 
     public static void main(String[] args) {
 
-        MemberService memberService = new MemberServiceImpl();
+        AppConfig appConfig = new AppConfig();
+
+        // appConfig.memberService()하면, MemberService 인페이스를 줌!
+        // MemberService에는 MemberServiceImpl 들어가 있음!
+        MemberService memberService = appConfig.memberService();
 
         // (L = Long)
         // id가 long 타입이라서 붙여줘야함
