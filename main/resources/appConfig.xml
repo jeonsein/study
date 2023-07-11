@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!--
+    빈 정의: <bean> 요소를 사용하여 스프링 빈을 정의합니다.
+    빈은 클래스의 인스턴스를 말하며, 스프링 컨테이너에 의해 관리됩니다.
+
+    id: 빈의 고유 식별자로 사용됩니다.
+    class: 빈으로 생성될 클래스의 전체 경로를 지정합니다.
+    -->
+    <bean id="memberService" class="hello.core.member.MemberServiceImpl" >
+        <constructor-arg name="memberRepository" ref="memberRepository" />
+    </bean>
+
+    <bean id="memberRepository" class="hello.core.member.MemoryMemberRepository" />
+
+    <bean id="orderService" class="hello.core.order.OrderServiceImpl">
+        <constructor-arg name="memberRepository" ref="memberRepository"/>
+        <constructor-arg name="discountPolicy" ref="discountPolicy"/>
+    </bean>
+
+    <bean id="discountPolicy" class="hello.core.discount.RateDiscountPolicy" />
+
+    <!--
+        위의 XML에서는 다음과 같은 빈들이 정의되어 있습니다:
+
+        memberService: MemberServiceImpl 클래스를 인스턴스화하여 생성되는 빈입니다.
+                       생성자 인자로 memberRepository라는 빈을 참조합니다.
+        memberRepository: MemoryMemberRepository 클래스를 인스턴스화하여 생성되는 빈입니다.
+        orderService: OrderServiceImpl 클래스를 인스턴스화하여 생성되는 빈입니다.
+                      생성자 인자로 memberRepository와 discountPolicy라는 빈을 참조합니다.
+        discountPolicy: RateDiscountPolicy 클래스를 인스턴스화하여 생성되는 빈입니다.
+    -->
+
+</beans>
