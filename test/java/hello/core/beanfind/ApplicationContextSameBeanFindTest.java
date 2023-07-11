@@ -2,7 +2,6 @@ package hello.core.beanfind;
 
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.NoUniqueBeanDefinitionException;
@@ -12,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ApplicationContextSameBeanFindTest {
@@ -38,6 +37,7 @@ public class ApplicationContextSameBeanFindTest {
         MemberRepository memberRepository =
                 ac.getBean("memberRepository1", MemberRepository.class);
 
+        // 반환된 빈이 MemberRepository의 인스턴스인지 확인합니다.
         assertThat(memberRepository).isInstanceOf(MemberRepository.class);
 
     } // findBeanByName()
@@ -45,12 +45,22 @@ public class ApplicationContextSameBeanFindTest {
     @Test
     @DisplayName("특정 타입을 모두 조회하기")
     void findAllBeanByType() {
+        // MemberRepository 타입의 모든 빈을 Map 형태로 반환
+        // key는 해당 빈의 이름이 되고, value는 해당 빈의 인스턴스!!
         Map<String, MemberRepository> beansOfType = ac.getBeansOfType(MemberRepository.class);
 
+        // 조회된 빈들의 이름과 인스턴스를 순회하면서 출력
+        // beansOfType.keySet()을 통해 모든 빈의 이름을 가져온 후,
+        // 각 이름에 대해 빈의 이름과 인스턴스를 출력합니다.
         for (String key : beansOfType.keySet()) {
             System.out.println("key = " + key + " value = " + beansOfType.get(key));
         } // for
+
+        // beansOfType 변수를 출력하면, 빈의 이름과 인스턴스가 포함된 전체 Map이 출력
         System.out.println("beansOfType = " + beansOfType);
+
+        // 조회된 빈들의 개수가 2인지 확인
+        // beansOfType.size()는 조회된 빈들의 개수를 반환 -> 2가 맞는지 확인
         assertThat(beansOfType.size()).isEqualTo(2);
     } // findAllBeanByType()
 
