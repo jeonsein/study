@@ -18,6 +18,7 @@ public class AppConfig {
     // MemberServiceImpl을 생성하고, 해당 구현체는 MemoryMemberRepository를 사용함! (주입)
     @Bean
     public MemberService memberService() {
+        System.out.println("call AppConfig.memberService");
         // memberRepository()를 의존
         // 따라서 MemberServiceImpl은 MemberRepository에 의존.
         return new MemberServiceImpl(memberRepository());
@@ -25,6 +26,7 @@ public class AppConfig {
 
     @Bean
     public MemberRepository memberRepository() {
+        System.out.println("call AppConfig.memberRepository");
         // MemoryMemberRepository는 MemberRepository 인터페이스를 구현한 구현체
         // MemberServiceImpl은 MemberRepository에 의존하여 데이터 저장소를 사용
         return new MemoryMemberRepository();
@@ -32,6 +34,7 @@ public class AppConfig {
 
     @Bean
     public OrderService orderService() {
+        System.out.println("call  AppConfig.orderService");
         // memberRepository()와 discountPolicy()를 의존
         // 따라서 OrderServiceImpl은 MemberRepository와 DiscountPolicy에 의존
         return new OrderServiceImpl(memberRepository(), discountPolicy());

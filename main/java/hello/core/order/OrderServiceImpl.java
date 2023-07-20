@@ -32,4 +32,9 @@ public class OrderServiceImpl implements OrderService {
 
     } // createOrder
 
+    // Test용
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
+    }
+
 } // end class
